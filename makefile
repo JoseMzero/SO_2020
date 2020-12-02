@@ -22,3 +22,4 @@ clean:
 	$(RM) arbito arbito.o
 	$(RM) cliente cliente.o
 	$(RM) jogos/G_001 jogos/G_001.o
+	rm fifo*

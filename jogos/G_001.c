@@ -1,6 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <signal.h>
+#include <unistd.h>
+
+void regras() {
+	printf("Jogo das Capitais\nInsira o capital do pais perguntado\n");
+}
+
+void terminar() {
+	printf("O jogo foi encerrado");
+	exit(1);
+}
 
 int main()
 {
@@ -186,6 +197,11 @@ int main()
 	char capital[50];
 	int random,pontos=0;
 
+	regras();
+	printf("Eu teho i PID= %d .. \n", getpid());
+	signal(SIGUSR1, regras);
+	signal(SIGUSR2, terminar);
+
 	while (1) {
 		random = rand() % 176;
 
@@ -205,5 +221,4 @@ int main()
 			break;
 	}
 	printf("Parabens voce conseguiu %dpontos", pontos);
-
 }

@@ -19,8 +19,21 @@ void verifica_var_amb(char *dir,int *max) {
 
 int main(int argc, char** argv) {
 
+	printf("asdasdad1");
 	char game_dir[50];
-	int max_player, duracao_camp,tempo_espera;
+	int max_player, duracao_camp,tempo_espera,fs_in,fs_out,r;
+
+	
+	printf("asdasdad2");
+	//verificar se ja existe algum server a correr
+	if (access(PIPE_SERVER, F_OK) != 0)
+		mkfifo(PIPE_SERVER, 0600);
+	else {
+		fprintf(stderr, "ERRO Ja existe um servidor a funcionar!\n");
+		exit(1);
+	}
+	
+	printf("asdasdad3");
 
 	if (argc < 3) {
 			printf("ERRO - FALTAMARGUMENTOS NA LINHA DE COMANDOS\n");
@@ -37,6 +50,20 @@ int main(int argc, char** argv) {
 		}
 	}
 	verifica_var_amb(game_dir, &max_player);
-	printf("diretorio dos jogos: %s\nnumero maxino de jogadores: %d\nduracao do campeonato: %d\ntempo de espera: %d\n", game_dir, max_player,duracao_camp,tempo_espera);
+	
+	
+
+	printf("asdasdad4");
+
+	cli m;
+	char nome[50];
+	printf("asdasdad5");
+		fs_in = open(PIPE_SERVER, O_RDONLY);
+		r=read(fs_in,nome,sizeof(char)*50);
+			printf("O jogador %s acabou de se juntar",nome);	
+	close(fs_in);
+	//printf("diretorio dos jogos: %s\nnumero maxino de jogadores: %d\nduracao do campeonato: %d\ntempo de espera: %d\n", game_dir, max_player,duracao_camp,tempo_espera);
+	
+	unlink(PIPE_SERVER);
 	
 }
