@@ -3,15 +3,14 @@
 void terminarExecucao();
 
 int main(int argc, char** argv){
-<<<<<<< Updated upstream
-=======
+
 	char fifo[40];
 	int fd_out, fd_in, num;
 	cli j;
 	
 	signal(SIGUSR1, terminarExecucao);
 
->>>>>>> Stashed changes
+
 	
 	if (access(PIPE_SERVER, F_OK) != 0){
 		printf("ERRO - NAO FOI POSSIVEL ENCONTRAR O ARBITO");
