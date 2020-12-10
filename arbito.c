@@ -33,7 +33,9 @@ int main(int argc, char** argv) {
 		exit(1);
 	}
 	
-
+<<<<<<< Updated upstream
+	printf("asdasdad3");
+=======
 	
 	int kickPlayer(cli *Users,char cmd[],int max){
 		int i;	
@@ -72,7 +74,7 @@ int main(int argc, char** argv) {
 	
 
 int main(int argc, char** argv) {
-
+>>>>>>> Stashed changes
 
 	if (argc < 3) {
 			printf("ERRO - FALTAMARGUMENTOS NA LINHA DE COMANDOS\n");
@@ -92,7 +94,9 @@ int main(int argc, char** argv) {
 	
 	
 
-
+<<<<<<< Updated upstream
+	printf("asdasdad4");
+=======
 				}
 				else if(strcmp(cmd, "games")==0){
 					//lista jogos
@@ -130,5 +134,18 @@ int main(int argc, char** argv) {
 	
 	exit(5);
 	
+	
+>>>>>>> Stashed changes
+
+	cli m;
+	char nome[50];
+	printf("asdasdad5");
+		fs_in = open(PIPE_SERVER, O_RDONLY);
+		r=read(fs_in,nome,sizeof(char)*50);
+			printf("O jogador %s acabou de se juntar",nome);	
+	close(fs_in);
+	//printf("diretorio dos jogos: %s\nnumero maxino de jogadores: %d\nduracao do campeonato: %d\ntempo de espera: %d\n", game_dir, max_player,duracao_camp,tempo_espera);
+	
+	unlink(PIPE_SERVER);
 	
 }
