@@ -3,35 +3,51 @@
 void terminarExecucao();
 
 int main(int argc, char** argv){
-<<<<<<< Updated upstream
-=======
 	char fifo[40];
 	int fd_out, fd_in, num;
 	cli j;
 	
 	signal(SIGUSR1, terminarExecucao);
 
->>>>>>> Stashed changes
 	
-	if (access(PIPE_SERVER, F_OK) != 0){
+	if (access(FIFO_SRV, F_OK) != 0){
 		printf("ERRO - NAO FOI POSSIVEL ENCONTRAR O ARBITO");
 		exit(1);
 	}
-
-
-	cli jogador;
-	printf("Introduza o seu nome:");
-	//scanf("%49[^\n]", jogador.nome);
 	
-	int fs_in,fs_out;
-	jogador.pid=123;
-	jogador.pontos=13;
-	fs_out= open(PIPE_SERVER,O_WRONLY);
-	if(fs_out==-1)
-	printf("pipe nao encontrado\n");
-	printf("enviar\n");
-	char nome[50]="Pedro";
-	write(fs_out,nome,sizeof(char)*50);
+	
+	j.pid = getpid();
+	sprintf(fifo, FIFO_CLI, j.pid);
+	
+	mkfifo(fifo,0600);
+	printf("Cliente inicializado.\n");
+	
+	fd_out = open(FIFO_SRV, O_WRONLY);
+	
+	printf("Nome: "); fflush(stdout);
+	scanf("%s", j.nome);
+	j.aceite = -1;
+	
+
+	
+	do{
+		
+		num = write(fd_out, &j, sizeof(cli));
+		
+		fd_in = open(fifo, O_RDONLY);
+		num = read(fd_in, &j, sizeof(cli));
+		close(fd_in);
+		
+		printf("Nome [%s] valido", j.nome); fflush(stdout);
+		scanf("%s", j.res);
+		
+	}while(strcmp(j.res,"sair")!=0);		
+
+	close(fd_out);
+	unlink(fifo);
+	
+	exit(5);
+	
 	
 	
 	
@@ -43,6 +59,6 @@ void terminarExecucao(){
 	char temp[20];
 	sprintf(temp, FIFO_CLI, getpid());
 	unlink(temp);
-	
+
 	exit(0);
 }
